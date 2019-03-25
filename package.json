@@ -1,0 +1,17 @@
+{
+  "name": "meal_cost_calculator",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "debug": "node --inspect-brk index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "leancloud-storage": "^3.12.0",
+    "wechaty": "^0.22.6"
+  }
+}
