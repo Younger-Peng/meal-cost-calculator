@@ -8,17 +8,16 @@
 <script type="text/javascript" src="http://static.runoob.com/assets/qrcode/qrcode.min.js"></script>
 </head>
 <body>
-<div id="qrcode" style="width:100px; height:100px; margin-top:15px;"></div>
-
-<script type="text/javascript">
-var qrcode = new QRCode(document.getElementById("qrcode"), {
-    width : 300,
-    height : 300
-});
-var url = document.location.search.replace('?url=', '');
-url = decodeURIComponent(url);
-qrcode.makeCode(url);
-
-</script>
+    <p>打开微信扫一扫</p>
+    <div id="qrcode" style="width:100px; height:100px; margin-top:20px;"></div>
+    <script type="text/javascript">
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            width : 300,
+            height : 300
+        });
+        var url = document.location.search.replace('?url=', '');
+        url = decodeURIComponent(url);
+        qrcode.makeCode(url);
+    </script>
 </body>
 </html>
