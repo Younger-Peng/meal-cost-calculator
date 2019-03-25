@@ -13,7 +13,7 @@ Wechaty.instance()
     isGenerated = true
     qrcode = encodeURIComponent(qrcode)
     if (process.platform === 'darwin') {
-        cp.exec(`open -a file:///${htmlFilePath}?url=${qrcode}`)
+        cp.exec(`open file:///${htmlFilePath}?url=${qrcode}`)
     } else if (process.platform === 'win32') {
         cp.exec(`start chrome file:///${htmlFilePath}?url=${qrcode}`)
     }
