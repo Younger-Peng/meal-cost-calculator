@@ -8,4 +8,5 @@ const fullStack = {
     jsonFile: require('path').join(__dirname, 'test.json')
 }
 
-module.exports = webGroup;
+// module.exports = webGroup;
+module.exports = fullStack;

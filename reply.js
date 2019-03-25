@@ -21,10 +21,13 @@ async function reply(msg) {
             room.say('充值失败', [contact])
         } else {
             let text = '';
+            let total = 0;
             Object.keys(result)
                 .forEach(key => {
-                    text += `\n${key}: ${result[key]}`
+                    text += `\n${key}: ${result[key]}`;
+                    total += result[key];
                 });
+            text += `\ntotal: ${total}`;
             console.log(text)
             room.say(text, [contact])
         }
@@ -36,10 +39,13 @@ async function reply(msg) {
             room.say('扣款失败', [contact])
         } else {
             let text = '';
+            let total = 0;
             Object.keys(result)
                 .forEach(key => {
-                    text += `\n${key}: ${result[key]}`
+                    text += `\n${key}: ${result[key]}`;
+                    total += result[key];
                 });
+            text += `\ntotal: ${total}`;
             console.log(text)
             room.say(text, [contact])
         }

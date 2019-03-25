@@ -35,8 +35,7 @@ async function keepAccounts(name, money) {
     }
     const newFee = {
         ...oldFee,
-        [name]: oldFee[name] + money,
-        total: oldFee.total + money
+        [name]: oldFee[name] + money
     };
     try {
         await updateRecord(JSON.stringify(newFee));
