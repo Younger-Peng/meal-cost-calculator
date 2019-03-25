@@ -1,5 +1,5 @@
 const fs = require('fs');
-const filePath = __dirname + '/bank.json';
+const filePath = require('./config.js').jsonFile;
 
 function fetchRecord() {
     return new Promise((resolve, reject) => {
@@ -26,25 +26,20 @@ function updateRecord(str) {
 }
 
 async function keepAccounts(name, money) {
-    debugger;
     let oldFee;
     try {
         oldFee = await fetchRecord();
-        debugger;
     } catch(err) {
         console.log(err);
         return null
     }
-    console.log(oldFee)
     const newFee = {
         ...oldFee,
         [name]: oldFee[name] + money,
         total: oldFee.total + money
     };
-    console.log(newFee)
     try {
         await updateRecord(JSON.stringify(newFee));
-        debugger;
     } catch(err) {
         console.log(err);
         return null;

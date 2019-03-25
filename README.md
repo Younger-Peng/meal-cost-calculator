@@ -4,11 +4,11 @@
 
 ## 启动项目
 
-```
+```sh
 npm install
 ```
 
-```
+```sh
 npm start
 ```
 
@@ -25,5 +25,5 @@ npm start
 
 ## Todo
 
-数据同步的问题：存储至 `LeanCloud`
-
+- 数据同步的问题：存储至 `LeanCloud`
+- 存储失败没有提供回滚机制
