@@ -11,3 +11,8 @@ npm install
 ```
 npm start
 ```
+
+## Todo
+
+数据同步的问题：存储至 LeanCloud
+
