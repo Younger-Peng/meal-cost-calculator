@@ -11,12 +11,14 @@ Wechaty.instance()
 .on('scan', qrcode  => {
     if (isGenerated) return;
     isGenerated = true
-    qrcode = encodeURIComponent(qrcode)
-    if (process.platform === 'darwin') {
-        cp.exec(`open file:///${htmlFilePath}?url=${qrcode}`)
-    } else if (process.platform === 'win32') {
-        cp.exec(`start chrome file:///${htmlFilePath}?url=${qrcode}`)
-    }
+    require('fs').writeFile('qrcode.js', `var url = "${qrcode}"`, { flag: 'w' }, err => {
+        if (err) return console.log(err);
+        if (process.platform === 'darwin') {
+            cp.exec(`open file:///${htmlFilePath}`)
+        } else if (process.platform === 'win32') {
+            cp.exec(`start chrome file:///${htmlFilePath}`)
+        }
+    })
 })
 .on('login',       user    => {
     console.log('登录成功：' + JSON.stringify(user))

@@ -5,7 +5,7 @@ const webGroup = {
 
 const fullStack = {
     roomName: '全干工程师',
-    jsonFile: require('path').join(__dirname, 'test.json')
+    jsonFile: require('path').join(__dirname, 'fullStack.json')
 }
 
 module.exports = webGroup;
