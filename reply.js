@@ -9,7 +9,7 @@ async function reply(msg) {
     if (!room) return;
     const name = await contact.alias() || contact.name();
     const roomName = await room.topic();
-    console.log({ roomName, name, content })
+    // console.log({ roomName, name, content })
     if (roomName !== targetRoomName) return;
     const money = parseFloat(content);
     if (typeof money !== 'number') return;
@@ -28,7 +28,7 @@ async function reply(msg) {
                     total += result[key];
                 });
             text += `\ntotal: ${total}`;
-            console.log(text)
+            // console.log(text)
             room.say(text, [contact])
         }
 
@@ -46,7 +46,7 @@ async function reply(msg) {
                     total += result[key];
                 });
             text += `\ntotal: ${total}`;
-            console.log(text)
+            // console.log(text)
             room.say(text, [contact])
         }
     }
