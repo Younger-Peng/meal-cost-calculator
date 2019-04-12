@@ -1,5 +1,5 @@
 const fs = require('fs');
-const keepAccounts = require('./account');
+const { keepAccounts } = require('./account');
 const { roomName: targetRoomName } = require('./config');
 
 async function reply(msg) {
@@ -14,42 +14,52 @@ async function reply(msg) {
     const money = parseFloat(content);
     if (typeof money !== 'number') return;
 
-    // 充值
-    if (content.startsWith('+') && money >= 0) {
-        const result = await keepAccounts(name, money, 'charge')
-        if (!result) {
-            room.say('充值失败', [contact])
-        } else {
-            let text = '';
-            let total = 0;
-            Object.keys(result)
-                .forEach(key => {
-                    text += `\n${key}: ${result[key]}`;
-                    total += result[key];
-                });
-            text += `\ntotal: ${total}`;
-            // console.log(text)
-            room.say(text, [contact])
-        }
-
-    // 消费
-    } else if (content.startsWith('-') && money <= 0) {
-        const result = await keepAccounts(name, money, 'consume')
-        if (!result) {
-            room.say('扣款失败', [contact])
-        } else {
-            let text = '';
-            let total = 0;
-            Object.keys(result)
-                .forEach(key => {
-                    text += `\n${key}: ${result[key]}`;
-                    total += result[key];
-                });
-            text += `\ntotal: ${total}`;
-            // console.log(text)
-            room.say(text, [contact])
+    if (content.startsWith('+') || content.startsWith('-')) {
+        try {
+            await keepAccounts(name, money);
+            room.say('Success', [contact])
+        } catch(err) {
+            console.log(err);
+            room.say('Fail', [contact])
         }
     }
+
+    // 充值
+    // if (content.startsWith('+') && money >= 0) {
+    //     const result = await keepAccounts(name, money, 'charge')
+    //     if (!result) {
+    //         room.say('充值失败', [contact])
+    //     } else {
+    //         let text = '';
+    //         let total = 0;
+    //         Object.keys(result)
+    //             .forEach(key => {
+    //                 text += `\n${key}: ${result[key]}`;
+    //                 total += result[key];
+    //             });
+    //         text += `\ntotal: ${total}`;
+    //         // console.log(text)
+    //         room.say(text, [contact])
+    //     }
+
+    // // 消费
+    // } else if (content.startsWith('-') && money <= 0) {
+    //     const result = await keepAccounts(name, money, 'consume')
+    //     if (!result) {
+    //         room.say('扣款失败', [contact])
+    //     } else {
+    //         let text = '';
+    //         let total = 0;
+    //         Object.keys(result)
+    //             .forEach(key => {
+    //                 text += `\n${key}: ${result[key]}`;
+    //                 total += result[key];
+    //             });
+    //         text += `\ntotal: ${total}`;
+    //         // console.log(text)
+    //         room.say(text, [contact])
+    //     }
+    // }
 }
 
 module.exports = reply

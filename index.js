@@ -1,29 +1,26 @@
-const { Wechaty } = require('wechaty')
-const http = require('http')
-const cp = require('child_process')
-const reply = require('./reply')
+const express = require('express')
+const app = express()
+const port = 3000
+const db = require('./mongo');
+const wx = require('./wechat');
 
-let isGenerated = false
+main();
 
-const htmlFilePath = require('path').join(__dirname, 'qrcode.html')
+async function main() {
+    await db.connect();
+    addListeners(app);
+    app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+    wx.initWechat();
+}
 
-Wechaty.instance()
-.on('scan', qrcode  => {
-    if (isGenerated) return;
-    isGenerated = true
-    require('fs').writeFile('qrcode.js', `var url = "${qrcode}"`, { flag: 'w' }, err => {
-        if (err) return console.log(err);
-        if (process.platform === 'darwin') {
-            cp.exec(`open file:///${htmlFilePath}`)
-        } else if (process.platform === 'win32') {
-            cp.exec(`start chrome file:///${htmlFilePath}`)
-        }
+function addListeners(app) {
+    app.get('/', (req, res) => res.send('Hello World!'));
+
+    app.get('/data', (req, res) => {
+        const { mealFee } = db.dbs;
+        const cost = mealFee.collection('cost');
+        cost.find({}).toArray((err, items) => {
+            res.json({ items });
+        });
     })
-})
-.on('login',       user    => {
-    console.log('登录成功：' + JSON.stringify(user))
-})
-.on('message', reply)
-.on('friendship',  friendship => console.log('收到好友请求：' + friendship))
-.on('room-invite', invitation => console.log('收到入群邀请：' + invitation))
-.start()
+}
