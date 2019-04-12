@@ -1,6 +1,8 @@
 const fs = require('fs');
+const { FileBox } = require('file-box');
 const { keepAccounts } = require('./account');
 const { roomName: targetRoomName } = require('./config');
+const genImg = require('./ptr')
 
 async function reply(msg) {
     const contact = msg.from();
@@ -17,7 +19,9 @@ async function reply(msg) {
     if (content.startsWith('+') || content.startsWith('-')) {
         try {
             await keepAccounts(name, money);
-            room.say('Success', [contact])
+            await genImg();
+            const sumImg = FileBox.fromFile('D:/learn/wc/sum.png');
+            await room.say(sumImg, [contact])
         } catch(err) {
             console.log(err);
             room.say('Fail', [contact])

@@ -4,6 +4,7 @@ const port = 3000
 const db = require('./mongo');
 const wx = require('./wechat');
 
+app.use(express.static(__dirname + '/public'));
 main();
 
 async function main() {
@@ -17,9 +18,9 @@ function addListeners(app) {
     app.get('/', (req, res) => res.send('Hello World!'));
 
     app.get('/data', (req, res) => {
-        const { mealFee } = db.dbs;
-        const cost = mealFee.collection('cost');
-        cost.find({}).toArray((err, items) => {
+        const { mealfee } = db.dbs;
+        const sum = mealfee.collection('sum');
+        sum.find({}).toArray((err, items) => {
             res.json({ items });
         });
     })

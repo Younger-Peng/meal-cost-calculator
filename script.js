@@ -1,4 +1,5 @@
 const mongo = require('./mongo');
+const { FileBox } = require('file-box');
 const { ObjectID: ObjectId } = require('mongodb');
 
 async function main() {
@@ -27,4 +28,9 @@ async function main() {
     })
 }
 
-main();
+// main();
+
+const sumImg = FileBox.fromFile('D:/learn/wc/sum.png');
+// console.log(__dirname)
+
+console.log(sumImg);
