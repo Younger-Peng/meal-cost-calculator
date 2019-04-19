@@ -76,7 +76,7 @@ function updateSum(name, money) {
             } else {
                 const targetPerson = res.cash.find(item => item.name === name);
                 if (targetPerson) {
-                    targetPerson.total = round(targetPerson.total + money);
+                    targetPerson.total = round(targetPerson.total + money, 2);
                 } else {
                     res.cash.push({
                         name,
