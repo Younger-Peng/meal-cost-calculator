@@ -76,14 +76,14 @@ function updateSum(name, money) {
             } else {
                 const targetPerson = res.cash.find(item => item.name === name);
                 if (targetPerson) {
-                    targetPerson.total += money;
+                    targetPerson.total = round(targetPerson.total + money);
                 } else {
                     res.cash.push({
                         name,
                         total: money
                     });
                 }
-                res.total += money;
+                res.total = round(res.total + money, 2)
                 sum.updateOne(
                     {_id: ObjectId(res._id)},
                     {$set: {
@@ -101,4 +101,8 @@ function updateSum(name, money) {
 
 module.exports = {
     keepAccounts,
+}
+
+function round(number, precision) {
+    return Math.round(+number + 'e' + precision) / Math.pow(10, precision);
 }

@@ -75,14 +75,15 @@
             let contentHTML = '';
             const data = JSON.parse(xhr.responseText);
             const {cash, total} = data.items[0];
-            cash.forEach(person => {
-                contentHTML += `
-                    <div class="person">
-                        <span class="name">${person.name}</span>
-                        <span class="number">${person.total}</span>
-                    </div>
-                `;
-            });
+            cash.sort((a, b) => b.total - a.total)
+                .forEach(person => {
+                    contentHTML += `
+                        <div class="person">
+                            <span class="name">${person.name}</span>
+                            <span class="number">${person.total}</span>
+                        </div>
+                    `;
+                });
             overageEl.innerHTML = contentHTML;
             document.getElementById('total').innerText = total;
           }

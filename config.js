@@ -13,6 +13,6 @@ const mealFeeGroup = {
     jsonFile: require('path').join(__dirname, 'mealFee.json')
 }
 
-// module.exports = webGroup;
+module.exports = webGroup;
 // module.exports = fullStack;
-module.exports = mealFeeGroup;
+// module.exports = mealFeeGroup;

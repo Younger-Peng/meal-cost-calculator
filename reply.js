@@ -3,10 +3,12 @@ const { FileBox } = require('file-box');
 const { keepAccounts } = require('./account');
 const { roomName: targetRoomName } = require('./config');
 const genImg = require('./ptr')
+const { gossip } = require('./chatbot');
 
 async function reply(msg) {
     const contact = msg.from();
     const content = msg.text();
+    const contactList = await msg.mention();
     const room = msg.room();
     if (!room) return;
     const name = await contact.alias() || contact.name();
@@ -14,17 +16,22 @@ async function reply(msg) {
     // console.log({ roomName, name, content })
     if (roomName !== targetRoomName) return;
     const money = parseFloat(content);
-    if (typeof money !== 'number') return;
-
-    if (content.startsWith('+') || content.startsWith('-')) {
-        try {
-            await keepAccounts(name, money);
-            await genImg();
-            const sumImg = FileBox.fromFile('D:/learn/wc/sum.png');
-            await room.say(sumImg, [contact])
-        } catch(err) {
-            console.log(err);
-            room.say('Fail', [contact])
+    if (isNaN(money)) {
+        // if (contact.self()) return;
+        // console.log('闲聊时间');
+        // const reply = await gossip(content);
+        // await room.say(reply, contact)
+    } else {
+        if (content.startsWith('-') || content.startsWith('+')) {
+            try {
+                await keepAccounts(name, money);
+                await genImg();
+                const sumImg = FileBox.fromFile('D:/learn/wc/sum.png');
+                await room.say(sumImg, [contact])
+            } catch(err) {
+                console.log(err);
+                room.say('Fail', [contact])
+            }
         }
     }
 
