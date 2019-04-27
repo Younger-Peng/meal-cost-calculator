@@ -1,16 +1,13 @@
 const webGroup = {
-    roomName: '前端小分队',
-    jsonFile: require('path').join(__dirname, 'bank.json')
+    roomName: '前端小分队'
 };
 
 const fullStack = {
-    roomName: '全干工程师',
-    jsonFile: require('path').join(__dirname, 'fullStack.json')
+    roomName: '全干工程师'
 }
 
 const mealFeeGroup = {
-    roomName: '饭费计算器',
-    jsonFile: require('path').join(__dirname, 'mealFee.json')
+    roomName: '饭费计算器'
 }
 
 module.exports = webGroup;
