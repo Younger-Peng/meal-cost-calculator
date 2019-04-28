@@ -46,7 +46,6 @@ async function reply(msg) {
 
 async function recordAndRespond(name, money, room, mentions) {
     try {
-        return await room.say(`${name} ${money}`, mentions)
         await keepAccounts(name, money);
         await genImg();
         const sumImg = FileBox.fromFile('D:/learn/wc/sum.png');
