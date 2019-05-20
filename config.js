@@ -1,15 +1,12 @@
 const webGroup = {
-    roomName: '前端小分队'
+    roomName: '前端小分队',
+    admin: '张芳'
 };
 
 const fullStack = {
-    roomName: '全干工程师'
-}
-
-const mealFeeGroup = {
-    roomName: '饭费计算器'
+    roomName: '全干工程师',
+    admin: 'Woverine'
 }
 
 module.exports = webGroup;
 // module.exports = fullStack;
-// module.exports = mealFeeGroup;

@@ -3,7 +3,8 @@ const { ObjectID: ObjectId } = require('mongodb');
 
 async function keepAccounts(name, money) {
     await updateMember(name, money);
-    await updateSum(name, money);
+    const sum = await updateSum(name, money);
+    return sum
 }
 
 function updateMember(name, money) {
@@ -39,9 +40,9 @@ function updateSum(name, money) {
                         cash: res.cash,
                         total: res.total
                     }},
-                    (err, res) => {
+                    (err, result) => {
                         if (err) reject(err);
-                        else resolve();
+                        else resolve(res);
                     });
             }
         })

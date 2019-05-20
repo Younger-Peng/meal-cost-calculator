@@ -1,9 +1,8 @@
 const fs = require('fs');
 const { FileBox } = require('file-box');
 const { keepAccounts } = require('./account');
-const { roomName: targetRoomName } = require('./config');
+const { roomName: targetRoomName, admin } = require('./config');
 const genImg = require('./ptr')
-const admin = '张芳'
 
 async function reply(msg) {
     const contact = msg.from();
@@ -27,29 +26,53 @@ async function reply(msg) {
     }
     // 管理员为其他成员充值
     else {
-        if (name !== admin) return
         // 只有张芳有充值的权限
         if (content.startsWith('+') && name !== admin) {
             return await room.say(`您没有充值的权限\n请联系 ${admin} 帮您充值\n充值格式:\n@James +100`)
         }
+        if (name !== admin) return
         const [ mention, number ] = content.split(String.fromCharCode(8197))
-        if (!number || !number.startsWith('+')) return
+        const shortName = mention.substring(1).replace(/<img.{1,}?\/>/g, '')
+        if (!number || !number.startsWith('+')) {
+            return
+        }
         const money = parseFloat(number)
-        if (isNaN(money)) return
-        const member = await room.member(mention.substring(1))
-        if (!member) return
-        const alias = await member.alias();
-        if (!alias) return
+        if (isNaN(money)) {
+            console.log('不是数字', number)
+            return
+        }
+        
+        // This is a bug from library, you can not find a contact with it's fullname when
+        // it's name contains images, instead you have to remove all images, and the string
+        // left maybe usefull to find the target member
+        const member = await room.member(shortName)
+
+        if (!member) {
+            console.log(shortName, 'member 未找到 33333333333333333333333')
+            return await room.say('Oops, 未找到您提到的成员!', [contact])
+        }
+        const alias = await member.alias() || member.name();
+        if (!alias) {
+            console.log(member.alias(), '别名不存在44444444444444444')
+            return
+        }
         await recordAndRespond(alias, money, room, [contact, member])
     }
 }
 
 async function recordAndRespond(name, money, room, mentions) {
     try {
-        await keepAccounts(name, money);
-        await genImg();
-        const sumImg = FileBox.fromFile('D:/learn/wc/sum.png');
-        await room.say(sumImg, mentions)
+        const sum = await keepAccounts(name, money);
+        const {cash, total} = sum;
+        let remain = `\n总计: ${total}\n`
+
+        cash.sort((a, b) => b.total - a.total)
+            .forEach(person => {
+                remain += `${person.name}：${person.total}\n`;
+            });
+        // await genImg();
+        // const sumImg = FileBox.fromFile('D:/learn/wc/sum.png');
+        await room.say(remain, mentions)
     } catch(err) {
         console.log(err);
         await room.say('Fail，Please contact PengYang', mentions)
