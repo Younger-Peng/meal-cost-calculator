@@ -2,7 +2,7 @@ const fs = require('fs');
 const { FileBox } = require('file-box');
 const { keepAccounts } = require('./account');
 const { roomName: targetRoomName, admin } = require('./config');
-const genImg = require('./ptr')
+const remind = require('./remind');
 
 async function reply(msg) {
     const contact = msg.from();
@@ -56,7 +56,8 @@ async function reply(msg) {
             console.log(member.alias(), '别名不存在44444444444444444')
             return
         }
-        await recordAndRespond(alias, money, room, [contact, member])
+        await recordAndRespond(alias, money, room, [contact, member]);
+        remind(room);
     }
 }
 
@@ -70,8 +71,7 @@ async function recordAndRespond(name, money, room, mentions) {
             .forEach(person => {
                 remain += `${person.name}：${person.total}\n`;
             });
-        // await genImg();
-        // const sumImg = FileBox.fromFile('D:/learn/wc/sum.png');
+
         await room.say(remain, mentions)
     } catch(err) {
         console.log(err);

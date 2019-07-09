@@ -11,10 +11,6 @@ const config = {
 
 const client = new MongoClient(url, config);
 
-function time() {
-    return new Date().toISOString();
-}
-
 function connect() {
     return new Promise((resolve, reject) => {
         client.connect(err => {

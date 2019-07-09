@@ -2,6 +2,7 @@ const { Wechaty } = require('wechaty')
 const http = require('http')
 const cp = require('child_process')
 const reply = require('./reply')
+const remind = require('./remind');
 
 let isGenerated = false
 
@@ -23,8 +24,11 @@ function initWechat() {
                 }
             })
         })
-        .on('login', user => {
-            console.log('登录成功：' + JSON.stringify(user))
+        .on('login', async user => {
+            console.log('登录成功：' + JSON.stringify(user));
+            await sleep(10 * 1000);
+            const targetRoom = await bot.Room.find({ topic: '前端小分队' });
+            if (targetRoom) remind(targetRoom);
         })
         .on('message', reply)
         .on('friendship',  friendship => console.log('收到好友请求：' + friendship))
@@ -33,3 +37,9 @@ function initWechat() {
 }
 
 exports.initWechat = initWechat
+
+function sleep(miliseconds) {
+    return new Promise(resolve => {
+        setTimeout(resolve, miliseconds)
+    })
+}
