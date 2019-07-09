@@ -23,10 +23,12 @@ function remind(room) {
                             individualFee[doc.name] += `, ${doc.fee}`
                         }
                     });
+                    if (!docs.length) return;
                     let content = `${yearMonthDate}\n今日消费：\n\n`;
                     for (const name in individualFee) {
                         content += `${name}: ${individualFee[name]}\n`
                     }
+
                     await room.say(content);
                 }
             });
