@@ -1,7 +1,8 @@
 const { dbs } = require('./mongo');
 let remindTimer;
 
-function remind(room) {
+function remind(alias) {
+    console.log(new Date().toLocaleDateString(), new Date().toLocaleTimeString(), alias || '');
     remindTimer && clearTimeout(remindTimer);
     let now = Date.now();
     let targetTime = new Date();
@@ -28,11 +29,23 @@ function remind(room) {
                     for (const name in individualFee) {
                         content += `${name}: ${individualFee[name]}\n`
                     }
-
-                    await room.say(content);
+                    await sleep(10 * 1000);
+                    const targetRoom = await require('./wechat').bot.Room.find({ topic: '前端小分队' });
+                    if (!targetRoom) {
+                        console.log(new Date().toLocaleDateString(), new Date().toLocaleTimeString());
+                        console.log('fail')
+                    } else {
+                        await targetRoom.say(content);
+                    }
                 }
             });
     }, targetTime.valueOf() - now);
 }
 
 module.exports = remind;
+
+function sleep(miliseconds) {
+    return new Promise(resolve => {
+        setTimeout(resolve, miliseconds)
+    })
+}

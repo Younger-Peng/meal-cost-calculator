@@ -56,8 +56,8 @@ async function reply(msg) {
             console.log(member.alias(), '别名不存在44444444444444444')
             return
         }
+        remind(alias);
         await recordAndRespond(alias, money, room, [contact, member]);
-        remind(room);
     }
 }
 
