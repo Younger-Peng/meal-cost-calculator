@@ -1,1 +1,1 @@
-var url = "https://login.weixin.qq.com/l/waQUYPVPBw=="
+var url = "https://login.weixin.qq.com/l/Qai99H_XVw=="

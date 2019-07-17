@@ -22,6 +22,7 @@ async function reply(msg) {
     ) {
         const money = parseFloat(content);
         if (isNaN(money)) return
+        remind(name);
         await recordAndRespond(name, money, room, [contact])
     }
     // 管理员为其他成员充值
