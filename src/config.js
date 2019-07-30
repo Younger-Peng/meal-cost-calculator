@@ -1,6 +1,11 @@
 const webGroup = {
     roomName: '前端小分队',
-    admin: '张芳'
+    admin: '张芳',
+    remindTime: {
+        hours: 20,
+        minutes: 0,
+        seconds: 0
+    }
 };
 
 const fullStack = {

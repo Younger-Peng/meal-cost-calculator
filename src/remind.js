@@ -1,13 +1,13 @@
 let remindTimer;
 const { getDailyCost } = require('./leancloud')
-const { roomName } = require('./config')
+const { roomName, remindTime } = require('./config')
 
 function remind(alias) {
     console.log(new Date().toLocaleDateString(), new Date().toLocaleTimeString(), alias || '');
     remindTimer && clearTimeout(remindTimer);
     let now = Date.now();
     let targetTime = new Date();
-    targetTime.setHours(17, 6, 0); // 每天晚上8点整
+    targetTime.setHours(remindTime.hours, remindTime.minutes, remindTime.seconds); // 每天晚上8点整
     remindTimer = setTimeout(async () => {
 
         let yearMonthDate = new Date().toISOString().slice(0, 10);
