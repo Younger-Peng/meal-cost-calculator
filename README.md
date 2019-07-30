@@ -5,6 +5,11 @@
 
 ## 启动项目
 
+设置 puppeteer 的下载源，绕过GFW
+```sh
+npm config set puppeteer_download_host=https://npm.taobao.org/mirrors
+```
+
 ```sh
 npm install
 ```
@@ -32,4 +37,4 @@ npm start
 
 - [x] 数据同步的问题：存储至 `LeanCloud`
 - [ ] 存储失败没有提供回滚机制
-- [x] 提醒机制：吃了饭忘了扣钱？哈哈
+- [x] 提醒机制：吃了饭忘了扣钱
