@@ -1,5 +1,4 @@
 const fs = require('fs');
-const { FileBox } = require('file-box');
 const { keepAccounts } = require('./leancloud');
 const { roomName: targetRoomName, admin } = require('./config');
 const remind = require('./remind');

@@ -74,39 +74,39 @@ module.exports = {
 
 
 // 更新原始数据
-;(function injectStartUpData() {
-    updateSum({
-        "cash" : [
-        {
-            "name" : "彭扬", 
-            "total" : 85.6
-        }, 
-        {
-            "name" : "李金刚", 
-            "total" : 40
-        }, 
-        {
-            "name" : "冯连帅", 
-            "total" : 64.2
-        }, 
-        {
-            "name" : "张芳", 
-            "total" : 136.8
-        }, 
-        {
-            "name" : "王正正", 
-            "total" : 88.8
-        }, 
-        {
-            "name" : "刘尧尧", 
-            "total" : 51.5
-        }, 
-        {
-            "name" : "王安琪", 
-            "total" : 34
-        }
-    ], 
-    "total" : 500.9
-    }).then(console.log)
-    .catch(console.log)
-})();
+// ;(function injectStartUpData() {
+//     updateSum({
+//         "cash" : [
+//         {
+//             "name" : "彭扬", 
+//             "total" : 85.6
+//         }, 
+//         {
+//             "name" : "李金刚", 
+//             "total" : 40
+//         }, 
+//         {
+//             "name" : "冯连帅", 
+//             "total" : 64.2
+//         }, 
+//         {
+//             "name" : "张芳", 
+//             "total" : 136.8
+//         }, 
+//         {
+//             "name" : "王正正", 
+//             "total" : 88.8
+//         }, 
+//         {
+//             "name" : "刘尧尧", 
+//             "total" : 51.5
+//         }, 
+//         {
+//             "name" : "王安琪", 
+//             "total" : 34
+//         }
+//     ], 
+//     "total" : 500.9
+//     }).then(console.log)
+//     .catch(console.log)
+// })();
