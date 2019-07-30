@@ -1,6 +1,6 @@
 const fs = require('fs');
 const { FileBox } = require('file-box');
-const { keepAccounts } = require('./account');
+const { keepAccounts } = require('./leancloud');
 const { roomName: targetRoomName, admin } = require('./config');
 const remind = require('./remind');
 
@@ -66,7 +66,7 @@ async function recordAndRespond(name, money, room, mentions) {
     try {
         const sum = await keepAccounts(name, money);
         const {cash, total} = sum;
-        let remain = `\n总计: ${total}\n`
+        let remain = `\n余额: ${total}\n`
 
         cash.sort((a, b) => b.total - a.total)
             .forEach(person => {

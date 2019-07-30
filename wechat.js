@@ -1,13 +1,9 @@
 const { Wechaty } = require('wechaty')
-const http = require('http')
-const cp = require('child_process')
 const reply = require('./reply')
 const remind = require('./remind');
 const qrcodeMaker = require('qrcode-terminal')
 
 let isGenerated = false
-
-const htmlFilePath = require('path').join(__dirname, 'qrcode.html')
 
 function initWechat() {
     const bot = new Wechaty()
@@ -18,7 +14,7 @@ function initWechat() {
             isGenerated = true
             qrcodeMaker.generate(qrcode);
         })
-        .on('login', async user => {
+        .on('login', user => {
             console.log('登录成功：' + JSON.stringify(user));
             remind();
         })
