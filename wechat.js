@@ -3,6 +3,7 @@ const http = require('http')
 const cp = require('child_process')
 const reply = require('./reply')
 const remind = require('./remind');
+const qrcodeMaker = require('qrcode-terminal')
 
 let isGenerated = false
 
@@ -15,14 +16,7 @@ function initWechat() {
         .on('scan', qrcode  => {
             if (isGenerated) return;
             isGenerated = true
-            require('fs').writeFile('qrcode.js', `var url = "${qrcode}"`, { flag: 'w' }, err => {
-                if (err) return console.log(err);
-                if (process.platform === 'darwin') {
-                    cp.exec(`open file:///${htmlFilePath}`)
-                } else if (process.platform === 'win32') {
-                    cp.exec(`start chrome file:///${htmlFilePath}`)
-                }
-            })
+            qrcodeMaker.generate(qrcode);
         })
         .on('login', async user => {
             console.log('登录成功：' + JSON.stringify(user));
